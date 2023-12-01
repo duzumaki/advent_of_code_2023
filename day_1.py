@@ -15,18 +15,17 @@ number_map = {
 
 with open("tesst.txt", "r") as f:
     for line in f:
-
         # index 0 = first digit seen
         # inde 1 = second digit seen
         seen = [0, 0]
         end_pos = len(line)
-        for i in range(len(line)+1):
+        for i in range(len(line) + 1):
             start_pos = i
             if i != len(line):
-                # check current character
+                # search from the left and right at the same time
                 start, end = line[i], line[~i]
 
-
+            # part 2 of day 1
             # check a window from the left and right of a line
             # of "number" length from the start position and end position
             for number in number_map:
@@ -42,7 +41,8 @@ with open("tesst.txt", "r") as f:
                 ):
                     seen[1] = number_map[window_reverse]
 
-            # check if the crrent
+            # part 1 day 1
+            # check if the current "start" or "end" digit character has been seen already
             if not seen[0] and start.isdigit():
                 seen[0] = start
             if not seen[1] and end.isdigit():
