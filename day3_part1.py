@@ -27,6 +27,7 @@ def find_number(row: int, col: int, number_collector: list, search_diag: bool = 
     if grid[row][col] == "seen":
         return
 
+
     if grid[row][col].isdigit() and grid[row][col] != "seen":
         number_collector += (grid[row][col], row, col)
         grid[row][col] = "seen"
@@ -62,9 +63,7 @@ def grid_pass(rows: int, cols: int, search_diag: False, number_collector: list):
                     search_diag=search_diag,
                 )
                 if number_collector:
-                    # print(number_collector)
                     numbers.append(number_collector)
-                    print(number_collector)
                     number_collector = []
 
     output = []
@@ -106,4 +105,3 @@ pass1 = grid_pass(rows, cols, search_diag=False, number_collector=[])
 # symbol numbers as seen
 pass2 = grid_pass(rows, cols, search_diag=True, number_collector=[])
 
-print(sum(pass1) + sum(pass2))
