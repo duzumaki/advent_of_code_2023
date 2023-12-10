@@ -56,6 +56,9 @@ while q:
 
 print(len(seen)//2)
 
+
+##### Everything below is part 2 only
+
 def count_polygon_edges_hit(row: int, col: int):
     row_line = grid[row]
     count = 0
