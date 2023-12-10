@@ -66,7 +66,7 @@ print(len(seen) // 2)
 
 
 # the below solution didn't take into account you can only certain directions if you entered 
-# a pipe. e.g FROM UP DIRECTION -> J works but not FROM DOWN DIRECTION -> J.
+# a pipe. e.g 7 -> J works but not 7 -> F.
 # it was just checking all 4 directions and going through pipes it shouln't have been allowed
 # to traverse though.
 
