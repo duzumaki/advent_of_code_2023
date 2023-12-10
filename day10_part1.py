@@ -9,8 +9,6 @@ for line in f:
     row = [c for c in line if c != "\n"]
     grid.append(row)
 
-row = None
-
 
 ROWS = len(grid)
 COLS = len(grid[0])
@@ -67,6 +65,11 @@ while q:
 print(len(seen) // 2)
 
 
+# the below solution didn't take into account you can only certain directions if you entered 
+# a pipe. e.g FROM UP DIRECTION -> J works but not FROM DOWN DIRECTION -> J.
+# it was just checking all 4 directions and going through pipes it shouln't have been allowed
+# to traverse though.
+
 # directions = ((0, 1), (1, 0), (-1, 0), (0, -1))
 
 # # ((pipe_end_1 x, y), (pipe_end_2 x, y))
@@ -78,10 +81,6 @@ print(len(seen) // 2)
 #     "F": ((1, 0), (0, 1)),
 #     "7": ((1, 0), (0, -1)),
 # }
-
-# This solution is super slow for large grids because I'm checking every coordinate.
-# what i should do is just follow the VALID pipe symbols only
-# but keeping this here anyway.
 
 # def other_pipe_end(pipe_type: str, came_from: tuple, row: int, col: int):
 #     pipe_ends = PIPE_ENDS[pipe_type]
