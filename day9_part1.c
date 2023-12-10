@@ -11,7 +11,7 @@ int* split(char *line, int *nums_size) {
     char* line_copy = strdup(line);
 
     char* token = strtok(line_copy, " ");
-    int* nums = (int*)malloc(1000000000*sizeof(int));
+    int* nums = (int*)malloc(10000*sizeof(int));
     int i = 0;
 
     while (token != NULL) {
@@ -26,7 +26,7 @@ int* split(char *line, int *nums_size) {
     return nums;
 }
 
-int* get_sequence(int* nums, int size, int *sequence_sum, int* sequence_size) {
+int* get_sequence(int* nums, int size, int* sequence_size) {
     /*
     I originally tried to be clever and add 
     the nums to be like "if the line equals the sum of 0 that means
@@ -37,16 +37,29 @@ int* get_sequence(int* nums, int size, int *sequence_sum, int* sequence_size) {
     the python implementation and got bored of trying to fix the c one.
 
     */
-    *sequence_sum = 0;
     *sequence_size = 0;
     int* sequence = (int*)malloc(size*sizeof(int));
 
     for (int i = 1; i < size; i++) {
-        *sequence_sum += nums[i];
         sequence[i-1] = nums[i]-nums[i-1];
         *sequence_size += 1;
     }
     return sequence;
+}
+
+bool all_zeroes(int* nums, int size) {
+    for (int i=0; i < size; i++) {
+        if (nums[i] != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void print(int* nums, int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d\n", nums[i]);
+    }
 }
 
 int main() {
@@ -58,37 +71,29 @@ int main() {
 
     int nums_size;
 
-    int* prev_sequence = NULL;
-    size_t prev_nums_size;
-    size_t prev_sequence_sum = 0;
-    size_t sequence_sum = 0;
-
     int last_nums_in_each_sequence[102400];
 
     int TOTAL = 0;
 
     while ((read = getline(&line, &size, file)) != -1) {
-        int line_total = 0;
         int number_of_sequences = 0;
         int sequence_size = 0;
-        int sequence_sum = 0;
 
-        // 0   3   6   9  12  15
         int* sequence = split(line, &sequence_size);
+        number_of_sequences+=1;
 
-        // the following sequences
-        while (sequence_sum != 0) {
-            sequence = get_sequence(sequence, sequence_size, &sequence_sum, &sequence_size);
-            number_of_sequences++;
+        while (!all_zeroes(sequence, sequence_size)) {
             last_nums_in_each_sequence[number_of_sequences] = sequence[sequence_size-1];
+            sequence = get_sequence(sequence, sequence_size, &sequence_size);
+            number_of_sequences += 1;
         }
 
-        for (int i=number_of_sequences-1; i >= 0; i--) {
+
+        int line_total = 0;
+        for (int i=0; i < number_of_sequences; i++) {
             line_total += last_nums_in_each_sequence[i];
         }
         TOTAL += line_total;
-
-        free(sequence);
 
     }
     printf("%d", TOTAL);
