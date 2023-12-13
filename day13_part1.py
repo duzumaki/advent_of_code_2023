@@ -1,6 +1,38 @@
 f = open("test.txt").read().split("\n\n")
 
 
+"""
+
+
+ 0 #...##..#
+ 1 #....#..#
+ 2 ..##..###
+ 3 #####.##.
+ 4 #####.##.
+ 5 ..##..###
+ 6 #....#..#
+
+ top(reversed) =
+
+
+ 3 #####.##.
+ 2 ..##..###
+ 1 #....#..#
+*[0 #...##..#] 
+gets cut off because top = top[:len(bottom)]
+
+
+ bottom =
+
+ 4 #####.##.
+ 5 ..##..###
+ 6 #....#..#
+
+ so top == bottom
+
+
+"""
+
 output = 0
 
 for grid_string in f:
