@@ -6,7 +6,6 @@ for line in f:
 
 ROWS = len(grid)
 
-print(grid)
 
 def washing_machine_cycle():
     """
@@ -43,10 +42,10 @@ def washing_machine_cycle():
 seen = {grid}
 grid_states_in_order = [grid]
 
-cycle_length = 0
+length = 0
 
 while True:
-    cycle_length += 1
+    length += 1
     washing_machine_cycle()
 
     if grid in seen:
@@ -58,7 +57,35 @@ while True:
 cycle_start = grid_states_in_order.index(grid)
 
 
-grid = grid_states_in_order[(1_000_000_000 - cycle_start) % (cycle_length - cycle_start) + cycle_start]
+"""
+[] = grid state
+X = grid states in loop
+0 = cycle start
+
+
+->[i]->[i]->O->\
+            X   X
+            |   |
+            X-X/
+
+1_000_000_000 - cycle_start doing this 
+this is the 1 billion cycles we care about minus the start
+
+we divide it length-cycle_start 
+because length actually includes the ->[i]->[i] part and we only want the 
+actual cycle length when doing our calculation
+
+so the cycle part is just length - cycle_start = x
+
+so it's how many times do we go around a cycle of size x. 1 billion / x = y remainder z
+we onyly care about the remainder z because want to know which grid state did we land on 
+when we hit the 1 billionith cycle. 
+
++cycle_start is added back because once we calculte the correct position in the cycle
+we need to add the ->[i]->[i] part back since those are the grid state steps before the cycle started.
+
+"""
+grid = grid_states_in_order[(1_000_000_000 - cycle_start) % (length - cycle_start) + cycle_start]
 
 
 TOTAL_LOAD = 0
