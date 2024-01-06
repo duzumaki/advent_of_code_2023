@@ -49,7 +49,7 @@ def energize(start: int, direction: int):
 best = 0
 
 for pos in grid:
-    for direction in (-1, 1, 1j, -1j):
+    for direction in (1, -1, 1j, -1j):
         if pos - direction in grid:
             continue
 
